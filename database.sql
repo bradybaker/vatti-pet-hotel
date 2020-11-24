@@ -5,3 +5,5 @@ CREATE TABLE pets(
 	"color" VARCHAR (20) NOT NULL,
  	"checked_in" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+INSERT INTO pets ("pet", "breed", "color") VALUES ('Issa Dog', 'Cavapoo', 'Sea Green');
