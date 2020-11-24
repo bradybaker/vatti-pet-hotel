@@ -6,6 +6,32 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Test Page</h1>
+<body>
+    <header>
+        <h1>Furbaby Friendlystay!</h1>
+
+    </header>
+    <section id="addPet">
+        <h2>Check In Pet</h2>
+        <input type="text" id="nameIn" value="" placeholder="Name">
+        <input type="text" id="breedIn" value="" placeholder="Breed">
+        <input type="text" id="colorIn" value="" placeholder="Color">
+        <button type="button" id="addButton">Check In</button>
+    </section>
+    <section>
+        <h2>Pet Guests</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Breed</th>
+                    <th>Color</th>
+                    <th>Checked In</th>
+                </tr>
+            </thead>
+            <tbody id="viewPets">
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>
