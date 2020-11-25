@@ -10,30 +10,16 @@ $(document).ready(function () {
 }); // End doc ready
 
 function setupClickListeners() {
-<<<<<<< HEAD
   $('#addButton').on('click', function () {
     console.log('in addButton on click');
-
-    // get user input and put in an object
-    // NOT WORKING YET :(
-    // using a test object
-=======
-  $( '#addButton' ).on( 'click', function(){
-    console.log( 'in addButton on click' );
     // Get user input and put in an object using a test object
->>>>>>> main
     let petToSend = {
       pet: 'testName',
       breed: 'testName',
       color: 'testName',
     };
-<<<<<<< HEAD
-    // call saveKoala with the new obejct
-    savePet(petToSend);
-=======
     // Call savePet with the new obejct
-    savePet( petToSend );
->>>>>>> main
+    savePet(petToSend);
   });
 
   $('#viewPets').on('click', '.btn-transferClass', function () {
@@ -46,17 +32,15 @@ function setupClickListeners() {
     deletePet(petId);
   });
 
+  $('#viewPets').on('click', '.btn-changeStatus', function () {
+    petId = $(this).closest('tr').data('id')
+    deletePet(petId);
+  });
+
 }
-
-<<<<<<< HEAD
-
 
 function getPets() {
   console.log('in getPets');
-=======
-function getPets(){
-  console.log( 'in getPets' );
->>>>>>> main
   let html = '';
   $("#viewPets").empty();
   $.ajax({
@@ -79,25 +63,21 @@ function getPets(){
                   <button class="btn-changeStatus">Check In</button></td>
                 `;
       $('#viewPets').append(html)
-<<<<<<< HEAD
-    }  // end of for loop
+    }  // End of for loop
   });
-}
-// ajax call to server to get koalas
-
-// end getKoalas
+} // End getPets function
 
 function savePet(newPet) {
   console.log('in savePet', newPet);
-  // ajax call to server to get koalas
-  let payloadObject = {  // these tacos must match those in the router
+  let payloadObject = {
     name: $('#nameIn').val(),
     breed: $('#breedIn').val(),
-    color: $('#ageIn').val(),
+    color: $('#colorIn').val(),
   }
+  // Ajax call to server to get our pets
   $.ajax({
     type: 'POST',
-    url: '/pet',
+    url: '/pets',
     data: payloadObject
   }).then(function (response) {
     $('#nameIn').val(''),
@@ -108,33 +88,6 @@ function savePet(newPet) {
     .catch(function (error) {
       console.log(`Error:`, error);
       alert('Something bad happened')
-=======
-      }  // End of for loop
-  });
-} // End getPets function
-
-function savePet( newPet ){
-  console.log( 'in savePet', newPet );
-  let payloadObject = {
-    name: $('#nameIn').val(),
-    breed: $('#breedIn').val(),
-    color: $('#colorIn').val(),
-  }
-  // Ajax call to server to get our pets
-    $.ajax({
-        type: 'POST',
-        url: '/pets',
-        data: payloadObject
-    }).then( function (response) {
-        $('#nameIn').val(''),
-        $('#breedIn').val(''),
-        $('#colorIn').val(''),
-        getPets();
-    })
-    .catch ( function (error){
-        console.log (`Error:`, error);
-        alert ('Something bad happened')
->>>>>>> main
     });
 } // End savePet function
 
@@ -151,3 +104,16 @@ function deletePet(petId) {
       alert('Something bad happened. Try again later');
     })
 } // End deletePet function
+
+function checkInPet(petId) {
+  $.ajax({
+    method: 'PUT',
+    url: `/pets/${petId}`,
+    data: petId
+  }).then(function (response) {
+    getPets();
+  }).catch(function (error) {
+    console.log('Error in client PUT', error);
+    alert('Something bad happened. Try again later');
+  })
+}
