@@ -53,10 +53,10 @@ def close_db_conn(taco):
 
 #get all songs
 
-@app.route('/song', methods=['GET', 'POST']) # CASSEN HERE FOR GET AND POST
+@app.route('/pet', methods=['GET', 'POST']) # CASSEN HERE FOR GET AND POST
 def songStuff():
     if request.method == 'GET':
-        return getAllSongs()
+        return getAllPets()
     elif request.method == 'POST':
         return addPet(request.form )
 
@@ -86,16 +86,16 @@ def addPet(pet):
   return response
 
 
-@app.route('/songs')
-def getAllSongs():
+@app.route('/pet')
+def getAllPets():
     #get a connection, use that to get a cursor
     conn = get_db_conn()
     cursor = conn.cursor()
     #run our select query
-    cursor.execute('SELECT * FROM songs ORDER BY id DESC')
+    cursor.execute('SELECT * FROM pets ORDER BY checked_in DESC;')
     #get our results
     result = cursor.fetchall()
     #IMPORTANT! Close cursor
     cursor.close()
     # Send back results
-    return {'songs': result}
+    return {'pet': result}
