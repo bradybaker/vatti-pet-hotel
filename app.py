@@ -115,6 +115,9 @@ def addPet(pet):
         if cursor:
             # Close the cursor
             cursor.close()
+        if conn:
+            # close the conn
+            close_db_conn(response)
     return response
 
 @app.route('/pets')
@@ -126,5 +129,6 @@ def getAllPets():
     cursor.execute('SELECT * FROM pets ORDER BY checked_in DESC;')
     result = cursor.fetchall()
     cursor.close()
+    close_db_conn('taco')
     # Get our results
     return {'pets': result}
