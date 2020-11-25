@@ -113,7 +113,7 @@ def addPet(pet):
         cursor = conn.cursor()
         # Database INSERT
         sql = 'INSERT INTO pets ("pet", "breed", "color") VALUES (%s, %s, %s);'
-        cursor.execute(sql, (pet['pet'], pet['breed'], pet['color']))
+        cursor.execute(sql, (pet['name'], pet['breed'], pet['color']))
         # Commit
         conn.commit()
         response = {'msg': 'Added pet magic'}, 201
@@ -125,6 +125,9 @@ def addPet(pet):
         if cursor:
             # close the cursor
             cursor.close()
+        if conn:
+            # close the conn
+            close_db_conn(response)
     return response
 
 
