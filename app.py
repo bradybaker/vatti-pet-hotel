@@ -4,11 +4,9 @@ import psycopg2.pool
 
 app = Flask(__name__, static_folder="public", static_url_path="")
 
-
 @app.route('/')
 def index():
     return redirect('/index.html')
-
 
 # setup database using SimpleConnectionPool
 app.config['postgreSQL_pool'] = psycopg2.pool.SimpleConnectionPool(
@@ -19,15 +17,12 @@ app.config['postgreSQL_pool'] = psycopg2.pool.SimpleConnectionPool(
     database='pet_hotel'
 )
 
-# function to get connection to the DB, use in eachroute that needs to access DB
-
-
+# function to get connection to the DB, use in each route that needs to access DB
 def get_db_conn():
     if 'db' not in g:
         g.db = app.config['postgreSQL_pool'].getconn()
         print('Got connection to DB!')
         return g.db
-
 
 @app.teardown_appcontext
 def close_db_conn(taco):
@@ -37,9 +32,7 @@ def close_db_conn(taco):
         print('Closing connection!')
 
 # DELETE ROUTE -- JOHN
-
 # Route parameters - id will pass in the id of the pet to be deleted
-# this is DELETE
 @app.route('/pets/<id>', methods=["DELETE"])
 def delete_pet(id):
     print('Terminating furbaby', id)
@@ -48,28 +41,27 @@ def delete_pet(id):
     try:
         # Get a connection
         conn = get_db_conn()
-        # use connection to get a cursor
+        # Use connection to get a cursor
         cursor = conn.cursor()
-        # set up delete command syntax
+        # Set up delete command syntax
         sql = 'DELETE from pets WHERE id = %s;'
-        # execute delete commmand on database passing in id
+        # Execute delete commmand on database passing in id
         cursor.execute(sql, (id))
-        # need to commit or bad things
+        # Commit
         conn.commit()
         response = ({'msg': 'Terminated pet.'}, 201)
-        # catch errors
+        # Catch errors
     except psycopg2.Error as e:
         print('Error from DB', e.pgerror)
         response = {'msg': 'Error terminating pet magic'}, 500
     else:
         if cursor:
-            # close the cursor
+            # Close the cursor
             cursor.close()
         if conn:
-            # close the cursor
+            # Close the cursor
             close_db_conn(response)
     return response
-
 
 # PUT FOR CHECK IN -- BRADY
 @app.route('/pets/<id>', methods=['PUT'])
@@ -94,14 +86,12 @@ def changeCheckInStatus(id):
             close_db_conn(response)
     return response
 
-
 @app.route('/pets', methods=['GET', 'POST'])  # CASSEN HERE FOR GET AND POST
 def petStuff():
     if request.method == 'GET':
         return getAllPets()
     elif request.method == 'POST':
         return addPet(request.form)
-
 
 def addPet(pet):
     print('Adding pet', pet)
@@ -123,23 +113,22 @@ def addPet(pet):
         response = {'msg': 'Error Adding more pet magic'}, 500
     else:
         if cursor:
-            # close the cursor
+            # Close the cursor
             cursor.close()
         if conn:
             # close the conn
             close_db_conn(response)
     return response
 
-
 @app.route('/pets')
 def getAllPets():
-    # get a connection, use that to get a cursor
+    # Get a connection, use that to get a cursor
     conn = get_db_conn()
     cursor = conn.cursor()
-    # run our select query
+    # Run our select query
     cursor.execute('SELECT * FROM pets ORDER BY checked_in DESC;')
     result = cursor.fetchall()
     cursor.close()
     close_db_conn('taco')
-    # get our results
+    # Get our results
     return {'pets': result}
