@@ -55,6 +55,7 @@ function getPets() {
                     <td>${response.pets[i][2]}</td>
                     <td>${response.pets[i][3]}</td>
                     <td>${response.pets[i][4]}</td>
+                    <td>${response.pets[i][5]}</td>
               `;
       html += `<td>                   
                   <button class="btn-deletePetClass">Delete</button>
