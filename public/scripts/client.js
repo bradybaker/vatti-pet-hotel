@@ -60,7 +60,7 @@ function getPets() {
                   <button class="btn-deletePetClass">Delete</button>
                 </td>
                 <td>                   
-                  <button class="btn-changeStatus">Check In</button></td>
+                  <button class="btn-changeStatus">Check Out</button></td>
                 `;
       $('#viewPets').append(html)
     }  // End of for loop

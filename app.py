@@ -71,13 +71,13 @@ def changeCheckInStatus(id):
     cursor = None
     response = None
     try:
-        conn = get_db_conn
+        conn = get_db_conn()
         cursor = conn.cursor()
-        sql = '''UPDATE pets SET checked_in = 'No' where id=%s;'''
+        sql = '''UPDATE pets SET in_out = 'No' where id=%s;'''
         cursor.execute(sql, [id])
         conn.commit()
         response = ({'msg': 'Changed check-in status.'}, 200)
-    except psychopg2.Error as e:
+    except psycopg2.Error as e:
         print('Error from DB', e.pgerror)
         response = {'msg': 'Error changing the check-in status'}, 500
     else:
