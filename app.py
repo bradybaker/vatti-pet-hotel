@@ -7,19 +7,19 @@ app = Flask(__name__, static_folder="public", static_url_path="")
 
 @app.route('/')
 def index():
-       return redirect('/index.html')
+    return redirect('/index.html')
 
 
 # setup database using SimpleConnectionPool
 app.config['postgreSQL_pool'] = psycopg2.pool.SimpleConnectionPool(
-        1,  # min number of connections
+    1,  # min number of connections
     10,  # max number of connections
     host='127.0.0.1',
     port='5432',
     database='music_library'
 )
 
-#function to get connection to the DB, use in eachroute that needs to access DB
+# function to get connection to the DB, use in eachroute that needs to access DB
 
 
 def get_db_conn():
@@ -39,9 +39,16 @@ def close_db_conn(taco):
 # DELETE ROUTE -- JOHN
 
 
+# PUT FOR CHECK IN -- BRADY
+@app.route('/pets/<id>', method=['PUT'])
+def changeCheckInStatus():
+
+    # get all songs
 
 
-
+<<<<<<< HEAD
+@app.route('/song', methods=['GET', 'POST'])  # CASSEN HERE FOR GET AND POST
+=======
 
 # PUT FOR CHECK IN -- BRADY 
 
@@ -54,10 +61,53 @@ def close_db_conn(taco):
 #get all songs
 
 @app.route('/pet', methods=['GET', 'POST']) # CASSEN HERE FOR GET AND POST
+>>>>>>> main
 def songStuff():
     if request.method == 'GET':
         return getAllPets()
     elif request.method == 'POST':
+<<<<<<< HEAD
+        return addSong(request.form)
+
+
+def addSong(song):
+    print('Adding song', song)
+    cursor = None
+    response = None
+    try:
+        # Get a connection, use that to get a cursor
+        conn = get_db_conn()
+        cursor = conn.cursor()
+        # TODO Database INSERT
+        sql = 'INSERT INTO songs (rank, track, artist, published) VALUES (%s, %s, %s, %s);'
+        cursor.execute(sql, (song['rank'], song['track'],
+                             song['artist'], song['published']))
+        # IMPORTANT - FOR Add, Update, Delete - Make sure to commit!!!
+        conn.commit()
+        response = {'msg': 'Added song'}, 201
+    # python equivalent of catch
+    except psycopg2.Error as e:
+        print('Error from DB', e.pgerror)
+        response = {'msg': 'Error Adding song'}, 500
+    # python equivalent of finally
+    else:
+        if cursor:
+            # close the cursor
+            cursor.close()
+    return response
+
+# get all songs
+
+
+@app.route('/songs')
+def getAllSongs():
+    # get a connection, use that to get a cursor
+    conn = get_db_conn()
+    cursor = conn.cursor()
+    # run our select query
+    cursor.execute('SELECT * FROM songs ORDER BY id DESC')
+    # get our results
+=======
         return addPet(request.form )
 
 
@@ -94,8 +144,9 @@ def getAllPets():
     #run our select query
     cursor.execute('SELECT * FROM pets ORDER BY checked_in DESC;')
     #get our results
+>>>>>>> main
     result = cursor.fetchall()
-    #IMPORTANT! Close cursor
+    # IMPORTANT! Close cursor
     cursor.close()
     # Send back results
     return {'pet': result}
