@@ -1,5 +1,5 @@
 body {
-    background-image: url(../images/kitty.jpg);
+    background-image: url("../images/kitty.jpg");
     background-image: inherit;
     background-size: cover;
     background-position: center center;
