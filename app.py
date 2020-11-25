@@ -82,5 +82,7 @@ def getAllPets():
   cursor = conn.cursor()
   # run our select query
   cursor.execute('SELECT * FROM pets ORDER BY checked_in DESC;')
+  result = cursor.fetchall()
+  cursor.close()
   # get our results
-  return addPet(request.form)
+  return {'pets': result}
