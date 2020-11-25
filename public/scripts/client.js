@@ -65,7 +65,7 @@ function savePet( newPet ){
   let payloadObject = {
     name: $('#nameIn').val(),
     breed: $('#breedIn').val(),
-    color: $('#ageIn').val(),
+    color: $('#colorIn').val(),
   }
   // Ajax call to server to get our pets
     $.ajax({
