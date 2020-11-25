@@ -36,9 +36,24 @@ def close_db_conn(taco):
         app.config['postgreSQL_pool'].putconn(db)
         print('Closing connection!')
 
+# DELETE ROUTE -- JOHN
+
+
+
+
+
+
+# PUT FOR CHECK IN -- BRADY 
+
+
+
+
+
+
+
 #get all songs
 
-@app.route('/song', methods=['GET', 'POST'])
+@app.route('/song', methods=['GET', 'POST']) # CASSEN HERE FOR GET AND POST
 def songStuff():
     if request.method == 'GET':
         return getAllSongs()
