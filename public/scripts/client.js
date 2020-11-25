@@ -34,7 +34,7 @@ function setupClickListeners() {
 
   $('#viewPets').on('click', '.btn-changeStatus', function () {
     petId = $(this).closest('tr').data('id')
-    deletePet(petId);
+    checkInPet(petId);
   });
 
 }
