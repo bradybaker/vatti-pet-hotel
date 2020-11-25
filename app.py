@@ -43,7 +43,7 @@ def songStuff():
     if request.method == 'GET':
         return getAllSongs()
     elif request.method == 'POST':
-        return addSong(request.form )
+        return addPet(request.form )
 
 
 def addPet(pet):
