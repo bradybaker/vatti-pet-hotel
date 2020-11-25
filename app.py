@@ -40,33 +40,15 @@ def close_db_conn(taco):
 
 
 # PUT FOR CHECK IN -- BRADY
-@app.route('/pets/<id>', method=['PUT'])
-def changeCheckInStatus():
-
-    # get all songs
+# @app.route('/pets/<id>', method=['PUT'])
+#    def changeCheckInStatus():
 
 
-<<<<<<< HEAD
-@app.route('/song', methods=['GET', 'POST'])  # CASSEN HERE FOR GET AND POST
-=======
-
-# PUT FOR CHECK IN -- BRADY 
-
-
-
-
-
-
-
-#get all songs
-
-@app.route('/pet', methods=['GET', 'POST']) # CASSEN HERE FOR GET AND POST
->>>>>>> main
+@app.route('/pet', methods=['GET', 'POST'])  # CASSEN HERE FOR GET AND POST
 def songStuff():
     if request.method == 'GET':
         return getAllPets()
     elif request.method == 'POST':
-<<<<<<< HEAD
         return addSong(request.form)
 
 
@@ -107,44 +89,42 @@ def getAllSongs():
     # run our select query
     cursor.execute('SELECT * FROM songs ORDER BY id DESC')
     # get our results
-=======
-        return addPet(request.form )
+    return addPet(request.form)
 
 
 def addPet(pet):
-  print('Adding pet', pet)
-  cursor = None
-  response = None
-  try:
-    # Get a connection, use that to get a cursor
-    conn = get_db_conn()
-    cursor = conn.cursor()
-    # Sql text to insert pets into the table
-    sql = 'INSERT INTO pets ("pet", "breed", "color") VALUES (%s, %s, %s);'
-    cursor.execute(sql, (pet['pet'], pet['breed'], pet['color']))
-    # Commit
-    conn.commit()
-    response = {'msg': 'Added a pet'}, 201
-  # Do catch
-  except psycopg2.Error as e:
-    print('Error from DB', e.pgerror)
-    response = {'msg': 'Error adding your pet'}, 500
-  else:
-    if cursor:
-      # Close the cursor
-      cursor.close()
-  return response
+    print('Adding pet', pet)
+    cursor = None
+    response = None
+    try:
+        # Get a connection, use that to get a cursor
+        conn = get_db_conn()
+        cursor = conn.cursor()
+        # Sql text to insert pets into the table
+        sql = 'INSERT INTO pets ("pet", "breed", "color") VALUES (%s, %s, %s);'
+        cursor.execute(sql, (pet['pet'], pet['breed'], pet['color']))
+        # Commit
+        conn.commit()
+        response = {'msg': 'Added a pet'}, 201
+    # Do catch
+    except psycopg2.Error as e:
+        print('Error from DB', e.pgerror)
+        response = {'msg': 'Error adding your pet'}, 500
+    else:
+        if cursor:
+            # Close the cursor
+            cursor.close()
+    return response
 
 
 @app.route('/pet')
 def getAllPets():
-    #get a connection, use that to get a cursor
+    # get a connection, use that to get a cursor
     conn = get_db_conn()
     cursor = conn.cursor()
-    #run our select query
+    # run our select query
     cursor.execute('SELECT * FROM pets ORDER BY checked_in DESC;')
-    #get our results
->>>>>>> main
+    # get our results
     result = cursor.fetchall()
     # IMPORTANT! Close cursor
     cursor.close()
