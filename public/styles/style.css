@@ -1,7 +1,6 @@
 body {
-    width: 1200px;
-    height: 600px;
     background-image: url(../images/kitty.jpg);
+    background-image: inherit;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
