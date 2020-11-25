@@ -44,9 +44,10 @@ def delete_pet(id):
         # Use connection to get a cursor
         cursor = conn.cursor()
         # Set up delete command syntax
+        
         sql = 'DELETE from pets WHERE id = %s;'
         # Execute delete commmand on database passing in id
-        cursor.execute(sql, (id))
+        cursor.execute(sql, [id])
         # Commit
         conn.commit()
         response = ({'msg': 'Terminated pet.'}, 201)
@@ -73,7 +74,7 @@ def changeCheckInStatus(id):
         conn = get_db_conn
         cursor = conn.cursor()
         sql = '''UPDATE pets SET checked_in = 'No' where id=%s;'''
-        cursor.execute(sql, (id))
+        cursor.execute(sql, [id])
         conn.commit()
         response = ({'msg': 'Changed check-in status.'}, 200)
     except psychopg2.Error as e:
