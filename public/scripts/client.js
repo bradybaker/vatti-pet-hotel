@@ -1,7 +1,7 @@
-console.log( 'js' );
- 
-$( document ).ready( function(){
-  console.log( 'JQ' );
+console.log('js');
+
+$(document).ready(function () {
+  console.log('JQ');
   // Establish Click Listeners
   setupClickListeners()
   // Load existing pets on page load
@@ -10,32 +10,53 @@ $( document ).ready( function(){
 }); // End doc ready
 
 function setupClickListeners() {
+<<<<<<< HEAD
+  $('#addButton').on('click', function () {
+    console.log('in addButton on click');
+
+    // get user input and put in an object
+    // NOT WORKING YET :(
+    // using a test object
+=======
   $( '#addButton' ).on( 'click', function(){
     console.log( 'in addButton on click' );
     // Get user input and put in an object using a test object
+>>>>>>> main
     let petToSend = {
       pet: 'testName',
       breed: 'testName',
       color: 'testName',
     };
+<<<<<<< HEAD
+    // call saveKoala with the new obejct
+    savePet(petToSend);
+=======
     // Call savePet with the new obejct
     savePet( petToSend );
-  });
-  
-  $('#viewPets').on ('click', '.btn-transferClass', function () {
-    petId = $(this).closest('tr').data('id');
-    setTransferStatus (petId);
+>>>>>>> main
   });
 
-  $('#viewPets').on ('click', '.btn-deletePetClass', function () {
+  $('#viewPets').on('click', '.btn-transferClass', function () {
+    petId = $(this).closest('tr').data('id');
+    setTransferStatus(petId);
+  });
+
+  $('#viewPets').on('click', '.btn-deletePetClass', function () {
     petId = $(this).closest('tr').data('id')
-    deletePet (petId);
+    deletePet(petId);
   });
 
 }
 
+<<<<<<< HEAD
+
+
+function getPets() {
+  console.log('in getPets');
+=======
 function getPets(){
   console.log( 'in getPets' );
+>>>>>>> main
   let html = '';
   $("#viewPets").empty();
   $.ajax({
@@ -54,8 +75,40 @@ function getPets(){
       html += `<td>                   
                   <button class="btn-deletePetClass">Delete</button>
                 </td>
+                <td>                   
+                  <button class="btn-changeStatus">Check In</button></td>
                 `;
       $('#viewPets').append(html)
+<<<<<<< HEAD
+    }  // end of for loop
+  });
+}
+// ajax call to server to get koalas
+
+// end getKoalas
+
+function savePet(newPet) {
+  console.log('in savePet', newPet);
+  // ajax call to server to get koalas
+  let payloadObject = {  // these tacos must match those in the router
+    name: $('#nameIn').val(),
+    breed: $('#breedIn').val(),
+    color: $('#ageIn').val(),
+  }
+  $.ajax({
+    type: 'POST',
+    url: '/pet',
+    data: payloadObject
+  }).then(function (response) {
+    $('#nameIn').val(''),
+      $('#breedIn').val(''),
+      $('#colorIn').val(''),
+      getPets();
+  })
+    .catch(function (error) {
+      console.log(`Error:`, error);
+      alert('Something bad happened')
+=======
       }  // End of for loop
   });
 } // End getPets function
@@ -81,10 +134,11 @@ function savePet( newPet ){
     .catch ( function (error){
         console.log (`Error:`, error);
         alert ('Something bad happened')
+>>>>>>> main
     });
 } // End savePet function
 
-function deletePet( petId ) {
+function deletePet(petId) {
   $.ajax({
     method: 'DELETE',
     url: `/pets/${petId}`
