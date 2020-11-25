@@ -140,5 +140,6 @@ def getAllPets():
     cursor.execute('SELECT * FROM pets ORDER BY checked_in DESC;')
     result = cursor.fetchall()
     cursor.close()
+    close_db_conn('taco')
     # get our results
     return {'pets': result}
