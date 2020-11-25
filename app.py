@@ -38,6 +38,33 @@ def close_db_conn(taco):
 
 # DELETE ROUTE -- JOHN
 
+# Route parameters - this is handy for put and delete. (the <name> thing). can pass in whatever, like ID
+# this is GET only!
+@app.route('/pets/<id>', methods=["DELETE"])
+def delete_pet(id):
+    print('Terminating furbaby', id)
+    cursor = None
+    response = None
+    try:
+        # Get a connection, use that to get a cursor
+        conn = get_db_conn()
+        cursor = conn.cursor()
+        sql = 'DELETE from pets WHERE id = %s;'
+        # execute delete on database
+        cursor.execute(sql, (id))
+        # need to commit
+        conn.commit()
+        response = ({'msg': 'Terminated pet.'}, 201)
+        # catch errors
+    except psycopg2.Error as e:
+        print('Error from DB', e.pgerror)
+        response = {'msg': 'Error Adding more pet magic'}, 500
+    else:
+        if cursor:
+            # close the cursor
+            cursor.close()
+    return response
+
 
 # PUT FOR CHECK IN -- BRADY
 # @app.route('/pets/<id>', method=['PUT'])
