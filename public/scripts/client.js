@@ -4,24 +4,21 @@ $( document ).ready( function(){
   console.log( 'JQ' );
   // Establish Click Listeners
   setupClickListeners()
-  // load existing koalas on page load
+  // Load existing pets on page load
   getPets();
 
-}); // end doc ready
+}); // End doc ready
 
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', function(){
     console.log( 'in addButton on click' );
-    
-    // get user input and put in an object
-    // NOT WORKING YET :(
-    // using a test object
+    // Get user input and put in an object using a test object
     let petToSend = {
       pet: 'testName',
       breed: 'testName',
       color: 'testName',
     };
-    // call saveKoala with the new obejct
+    // Call savePet with the new obejct
     savePet( petToSend );
   });
   
@@ -37,8 +34,6 @@ function setupClickListeners() {
 
 }
 
-
-
 function getPets(){
   console.log( 'in getPets' );
   let html = '';
@@ -48,7 +43,7 @@ function getPets(){
     url: '/pets'
   }).then(function (response) {
     console.log(response.pets[0][1]);
-    // append data to the DOM
+    // Append data to the DOM
     for (let i = 0; i < response.pets.length; i++) {
       html = `<tr data-id="${response.pets[i][0]}">
                     <td>${response.pets[i][1]}</td>
@@ -61,21 +56,18 @@ function getPets(){
                 </td>
                 `;
       $('#viewPets').append(html)
-      }  // end of for loop
+      }  // End of for loop
   });
-}
-  // ajax call to server to get koalas
-  
- // end getKoalas
+} // End getPets function
 
 function savePet( newPet ){
   console.log( 'in savePet', newPet );
-  // ajax call to server to get koalas
-  let payloadObject = {  // these tacos must match those in the router
-        name: $('#nameIn').val(),
-        breed: $('#breedIn').val(),
-        color: $('#ageIn').val(),
-    }
+  let payloadObject = {
+    name: $('#nameIn').val(),
+    breed: $('#breedIn').val(),
+    color: $('#ageIn').val(),
+  }
+  // Ajax call to server to get our pets
     $.ajax({
         type: 'POST',
         url: '/pets',
@@ -90,8 +82,7 @@ function savePet( newPet ){
         console.log (`Error:`, error);
         alert ('Something bad happened')
     });
-}
-
+} // End savePet function
 
 function deletePet( petId ) {
   $.ajax({
@@ -105,4 +96,4 @@ function deletePet( petId ) {
       console.log('Error:', error);
       alert('Something bad happened. Try again later');
     })
-}
+} // End deletePet function
