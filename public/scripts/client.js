@@ -47,20 +47,20 @@ function getPets(){
     type: 'GET',
     url: '/pets'
   }).then(function (response) {
-    console.log(response);
+    console.log(response.pets[0][1]);
     // append data to the DOM
-    for (let i = 0; i < response.length; i++) {
-      html = `<tr data-id="${response[i].id}">
-                    <td>${response[i].pet}</td>
-                    <td>${response[i].breed}</td>
-                    <td>${response[i].color}</td>
-                    <td>${response[i].checked_in}</td>
+    for (let i = 0; i < response.pets.length; i++) {
+      html = `<tr data-id="${response.pets[i][0]}">
+                    <td>${response.pets[i][1]}</td>
+                    <td>${response.pets[i][2]}</td>
+                    <td>${response.pets[i][3]}</td>
+                    <td>${response.pets[i][4]}</td>
               `;
       html += `<td>                   
                   <button class="btn-deletePetClass">Delete</button>
                 </td>
                 `;
-      $('#viewPet').append(html)
+      $('#viewPets').append(html)
       }  // end of for loop
   });
 }
