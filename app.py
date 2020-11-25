@@ -46,33 +46,30 @@ def songStuff():
         return addSong(request.form )
 
 
-def addSong(song):
-  print('Adding song', song)
+def addPet(pet):
+  print('Adding pet', pet)
   cursor = None
   response = None
   try:
     # Get a connection, use that to get a cursor
     conn = get_db_conn()
     cursor = conn.cursor()
-    # TODO Database INSERT
-    sql = 'INSERT INTO songs (rank, track, artist, published) VALUES (%s, %s, %s, %s);'
-    cursor.execute(sql, (song['rank'], song['track'],
-                         song['artist'], song['published']))
-    # IMPORTANT - FOR Add, Update, Delete - Make sure to commit!!!
+    # Sql text to insert pets into the table
+    sql = 'INSERT INTO pets ("pet", "breed", "color") VALUES (%s, %s, %s);'
+    cursor.execute(sql, (pet['pet'], pet['breed'], pet['color']))
+    # Commit
     conn.commit()
-    response = {'msg': 'Added song'}, 201
-  # python equivalent of catch
+    response = {'msg': 'Added a pet'}, 201
+  # Do catch
   except psycopg2.Error as e:
     print('Error from DB', e.pgerror)
-    response = {'msg': 'Error Adding song'}, 500
-  # python equivalent of finally
+    response = {'msg': 'Error adding your pet'}, 500
   else:
     if cursor:
-      # close the cursor
+      # Close the cursor
       cursor.close()
   return response
 
-#get all songs
 
 @app.route('/songs')
 def getAllSongs():
