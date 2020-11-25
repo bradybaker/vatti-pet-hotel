@@ -79,7 +79,6 @@ function getPets(){
                   <button class="btn-changeStatus">Check In</button></td>
                 `;
       $('#viewPets').append(html)
-<<<<<<< HEAD
     }  // end of for loop
   });
 }
@@ -108,33 +107,6 @@ function savePet(newPet) {
     .catch(function (error) {
       console.log(`Error:`, error);
       alert('Something bad happened')
-=======
-      }  // End of for loop
-  });
-} // End getPets function
-
-function savePet( newPet ){
-  console.log( 'in savePet', newPet );
-  let payloadObject = {
-    name: $('#nameIn').val(),
-    breed: $('#breedIn').val(),
-    color: $('#colorIn').val(),
-  }
-  // Ajax call to server to get our pets
-    $.ajax({
-        type: 'POST',
-        url: '/pets',
-        data: payloadObject
-    }).then( function (response) {
-        $('#nameIn').val(''),
-        $('#breedIn').val(''),
-        $('#colorIn').val(''),
-        getPets();
-    })
-    .catch ( function (error){
-        console.log (`Error:`, error);
-        alert ('Something bad happened')
->>>>>>> main
     });
 } // End savePet function
 
