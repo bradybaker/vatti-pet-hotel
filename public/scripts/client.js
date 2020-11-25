@@ -78,7 +78,7 @@ function savePet( newPet ){
     }
     $.ajax({
         type: 'POST',
-        url: '/pet',
+        url: '/pets',
         data: payloadObject
     }).then( function (response) {
         $('#nameIn').val(''),
