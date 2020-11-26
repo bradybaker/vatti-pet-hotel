@@ -1,11 +1,13 @@
 body {
-    background-image: url(../images/petbnb-alternative-home-stay-to-pet-hotels.jpg);
-    background-image: inherit;
-    background-size: stretch;
-    background-position: center center;
+    background-image: url(../images/kitty.jpg);
+    background-size: 100% auto;
+    background-position: center;
     background-repeat: no-repeat;
-    margin: 5em;
-    padding: 0;
+    background-color: rgb(233, 233, 233);
+    height: 60rem;
+    width: auto;
+    padding: 5em;
+    margin: 0;
 }
 
 header {
